@@ -106,6 +106,12 @@
     input:focus, textarea:focus{ box-shadow: 0 0 0 6px var(--ring); border-color:transparent }
     .form .btn{ justify-self:start }
 
+    /* Визуально скрытый текст для доступности */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
     footer{ border-top:1px solid var(--border); padding:22px 0 34px; color:var(--muted); text-align:center }
 
     /* Responsive */
@@ -251,12 +257,19 @@
       <div class="panel">
         <form class="form" onsubmit="event.preventDefault(); alert('Спасибо! Мы получили ваш запрос.'); this.reset();">
           <div class="row">
-            <input type="text" name="name" placeholder="Ваше имя" required />
-            <input type="email" name="email" placeholder="Email" required />
+            <label class="sr-only" for="name">Ваше имя</label>
+            <input id="name" type="text" name="name" placeholder="Ваше имя" required />
+
+            <label class="sr-only" for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="Email" required />
           </div>
-          <textarea name="message" rows="4" placeholder="Сообщение или артикул..." required></textarea>
+
+          <label class="sr-only" for="message">Сообщение</label>
+          <textarea id="message" name="message" rows="4" placeholder="Сообщение или артикул..." required></textarea>
+
           <button class="btn" type="submit">Отправить запрос</button>
         </form>
+
         <p style="margin-top:14px; color:var(--muted)">
           Или напишите: <a href="mailto:info@example.com">info@example.com</a> · Позвоните: <a href="tel:+70000000000">+7 (000) 000-00-00</a>
         </p>
