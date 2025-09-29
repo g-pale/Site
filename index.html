@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Запчасти для авто — мини-каталог (4 позиции)</title>
+  <style>
+    :root{
+      --bg:#f7fafc;
+      --panel:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --brand:#2563eb;
+      --ring:rgba(37,99,235,.25);
+      --border:#e5e7eb;
+      --radius:16px;
+      --shadow:0 8px 30px rgba(2,6,23,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(800px 400px at -10% -10%, rgba(37,99,235,.08), transparent 60%),
+        radial-gradient(700px 350px at 110% -10%, rgba(14,165,233,.08), transparent 60%),
+        var(--bg);
+      line-height:1.6;
+    }
+    a{ color:var(--brand); text-decoration: none }
+    a:hover{ text-decoration: underline }
+
+    .container{ width:min(1100px, 92%); margin-inline:auto }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      background:rgba(255,255,255,.8);
+      backdrop-filter: saturate(160%) blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0 }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800; color:var(--ink);
+      text-decoration:none;
+    }
+    .brand .logo{ width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg, #2563eb, #06b6d4); color:#fff; font-weight:900; box-shadow: var(--shadow) }
+    nav a{ margin-left:16px; font-weight:600; color:var(--muted) }
+    nav a:hover{ color:var(--ink) }
+
+    /* Hero */
+    .hero{ display:grid; gap:20px; grid-template-columns: 1.1fr .9fr; align-items:center; padding:44px 0 18px }
+    h1{ margin:4px 0 6px; font-size:clamp(26px, 4vw, 40px); line-height:1.1 }
+    .lead{ color:var(--muted) }
+    .cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px;
+      background:linear-gradient(135deg, #2563eb, #06b6d4); color:#fff; border:none; cursor:pointer;
+      box-shadow: var(--shadow); font-weight:700; text-decoration:none;
+    }
+    .btn.alt{ background:#fff; color:var(--ink); border:1px solid var(--border); box-shadow:none }
+    .figure{
+      aspect-ratio: 4/3; border-radius:var(--radius); overflow:hidden; background:#fff; border:1px solid var(--border); box-shadow: var(--shadow)
+    }
+    .figure img{ width:100%; height:100%; object-fit:cover; display:block }
+
+    /* Separator */
+    .sep{
+      border:0; height:1px; margin:26px 0;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* Catalog */
+    section{ padding:28px 0 }
+    .section-title{ font-size:24px; margin:0 0 6px }
+    .section-sub{ color:var(--muted); margin:0 0 18px }
+    .grid{
+      display:grid; gap:18px; grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 6;
+      background:var(--panel); border:1px solid var(--border); border-radius:var(--radius);
+      overflow:hidden; box-shadow: var(--shadow);
+      transition:transform .2s ease;
+    }
+    .card:hover{ transform: translateY(-3px) }
+    .card a.thumb{ display:block; border-bottom:1px solid var(--border) }
+    .card img{ width:100%; height:260px; object-fit:contain; background:#f8fafc }
+    .card-body{ padding:14px 14px 16px }
+    .sku{ display:inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; color:#0b3b9f; background:#eff6ff; padding:4px 8px; border-radius:999px; border:1px solid #dbeafe; }
+    .card h3{ margin:8px 0 4px; font-size:18px }
+    .meta{ color:var(--muted); margin:0 0 10px }
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:8px }
+    .small-link{ font-size:14px }
+
+    /* Info & Contact */
+    .panel{
+      background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:16px; box-shadow: var(--shadow)
+    }
+    .form{ display:grid; gap:12px; max-width:520px }
+    .row{ display:grid; gap:12px; grid-template-columns: 1fr 1fr }
+    input, textarea{
+      width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); background:#fff; outline:none;
+    }
+    input:focus, textarea:focus{ box-shadow: 0 0 0 6px var(--ring); border-color:transparent }
+    .form .btn{ justify-self:start }
+
+    footer{ border-top:1px solid var(--border); padding:22px 0 34px; color:var(--muted); text-align:center }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr }
+      .card{ grid-column: span 12 }
+    }
+    @media (max-width: 560px){
+      nav{ display:none }
+      .row{ grid-template-columns: 1fr }
+      .card img{ height:220px }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="logo">🚗</span>
+        <span>Авто-запчасти</span>
+      </a>
+      <nav>
+        <a href="#catalog">Каталог</a>
+        <a href="#info">Доставка</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="container hero">
+    <div>
+      <h1>Запчасти для вашего авто — 4 проверенные позиции</h1>
+      <p class="lead">Мини-каталог с быстрыми ссылками на фото, артикулами и краткими описаниями. Нажмите на изображение, чтобы открыть фото в полном размере.</p>
+      <div class="cta">
+        <a class="btn" href="#catalog">Смотреть каталог</a>
+        <a class="btn alt" href="#contact">Запросить наличие</a>
+      </div>
+    </div>
+    <div class="figure">
+      <img src="https://prospekt-parts.com/img/goods/A4722001001.jpg" alt="Водяной насос — превью" />
+    </div>
+  </div>
+
+  <hr class="sep" />
+
+  <!-- Catalog -->
+  <section id="catalog">
+    <div class="container">
+      <h2 class="section-title">Каталог (4 товара)</h2>
+      <p class="section-sub">Оригинальные наименования с артикулами. Фото кликабельны (ссылка откроется в новой вкладке).</p>
+
+      <div class="grid">
+        <!-- 1 -->
+        <article class="card">
+          <a class="thumb" href="https://prospekt-parts.com/img/goods/A9604770403.jpg" target="_blank" rel="noopener">
+            <img src="https://prospekt-parts.com/img/goods/A9604770403.jpg" alt="Картридж фильтра топливного A9604770403" />
+          </a>
+          <div class="card-body">
+            <span class="sku">A9604770403</span>
+            <h3>Картридж Фильтра Топливного</h3>
+            <p class="meta">Очистка топлива от примесей, продлевает ресурс топливной системы.</p>
+            <div class="actions">
+              <a class="btn" href="#contact">Запросить наличие</a>
+              <a class="small-link" href="https://prospekt-parts.com/img/goods/A9604770403.jpg" target="_blank" rel="noopener">Открыть фото</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="card">
+          <a class="thumb" href="https://prospekt-parts.com/img/goods/A4722001001.jpg" target="_blank" rel="noopener">
+            <img src="https://prospekt-parts.com/img/goods/A4722001001.jpg" alt="Водяной насос A4722001001" />
+          </a>
+          <div class="card-body">
+            <span class="sku">A4722001001</span>
+            <h3>Водяной насос</h3>
+            <p class="meta">Ключевой элемент системы охлаждения, обеспечивает циркуляцию охлаждающей жидкости.</p>
+            <div class="actions">
+              <a class="btn" href="#contact">Запросить наличие</a>
+              <a class="small-link" href="https://prospekt-parts.com/img/goods/A4722001001.jpg" target="_blank" rel="noopener">Открыть фото</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="card">
+          <a class="thumb" href="https://prospekt-parts.com/img/goods/A3758900919.jpg" target="_blank" rel="noopener">
+            <img src="https://prospekt-parts.com/img/goods/A3758900919.jpg" alt="Амортизатор кабины A3758900919" />
+          </a>
+          <div class="card-body">
+            <span class="sku">A3758900919</span>
+            <h3>Амортизатор Кабины</h3>
+            <p class="meta">Снижает вибрации и повышает комфорт в салоне на неровной дороге.</p>
+            <div class="actions">
+              <a class="btn" href="#contact">Запросить наличие</a>
+              <a class="small-link" href="https://prospekt-parts.com/img/goods/A3758900919.jpg" target="_blank" rel="noopener">Открыть фото</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="card">
+          <a class="thumb" href="https://prospekt-parts.com/img/goods/A2600940300.jpg" target="_blank" rel="noopener">
+            <img src="https://prospekt-parts.com/img/goods/A2600940300.jpg" alt="Воздушный фильтр A2600940300" />
+          </a>
+          <div class="card-body">
+            <span class="sku">A2600940300</span>
+            <h3>Воздушный Фильтр</h3>
+            <p class="meta">Фильтрация воздуха, поступающего в двигатель, для стабильной работы и экономичности.</p>
+            <div class="actions">
+              <a class="btn" href="#contact">Запросить наличие</a>
+              <a class="small-link" href="https://prospekt-parts.com/img/goods/A2600940300.jpg" target="_blank" rel="noopener">Открыть фото</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep" />
+
+  <!-- Info -->
+  <section id="info">
+    <div class="container">
+      <div class="panel">
+        <h2 class="section-title">Доставка и оплата</h2>
+        <p>Доставляем по РФ и странам ЕАЭС. Возможен самовывоз со склада по предварительному согласованию. Оплата по счёту или картой.</p>
+        <p>Если нужного артикула нет в списке — <a href="#contact">напишите нам</a>, подберём аналог или привезём под заказ.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep" />
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">Связаться с нами</h2>
+      <p class="section-sub">Задайте вопрос по наличию и срокам. Мы ответим в ближайшее время.</p>
+      <div class="panel">
+        <form class="form" onsubmit="event.preventDefault(); alert('Спасибо! Мы получили ваш запрос.'); this.reset();">
+          <div class="row">
+            <input type="text" name="name" placeholder="Ваше имя" required />
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <textarea name="message" rows="4" placeholder="Сообщение или артикул..." required></textarea>
+          <button class="btn" type="submit">Отправить запрос</button>
+        </form>
+        <p style="margin-top:14px; color:var(--muted)">
+          Или напишите: <a href="mailto:info@example.com">info@example.com</a> · Позвоните: <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 • Мини-каталог запчастей. <a href="#catalog">Вернуться к каталогу</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
